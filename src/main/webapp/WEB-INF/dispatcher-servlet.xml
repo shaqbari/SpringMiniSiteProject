@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.sist.*"/>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/"
+		p:suffix=".jsp"	
+	/>
+	
+	<!--
+		회사 교육 : 회사소스 보고 순서대로 브리핑
+		1) Tomcat => DispatcherSevlet(web.xml)  
+		   ======       
+		   main() => web.xml => framework확인
+		             =DispatcherServlet(Spring)
+		             =FilterDispatcher(Struts2)
+		             =ActionServlet(Struts)
+		
+		2) 설정파일
+			Spring : applicationContext.xml => WEB-INF 
+			Struts2 : struts.xml => SRC
+			Struts : struts-config.xml=> SRC
+			
+		3) 클래스 분석
+		   =======
+		   Model => DAO => JSP
+		
+		4) JSP 분석
+		
+		
+		Spring의 경우
+		1) DispatcherServlet : req받음
+		==========================================
+			1-1) Model찾기 => HandlerMapping
+		2) Controller(Model) :  req, res <==> DAO 
+		3) req.setAttribute(), session
+		==========================================
+		4) DispatcherServlet
+		5) JSP 찾기 ==> ViewResolver : jsp path넘김
+		==========================================
+		
+		
+	  -->
+	<!-- <bean id="viewResolver"
+		class="ViewResolver"
+	/> -->
+	
+</beans>

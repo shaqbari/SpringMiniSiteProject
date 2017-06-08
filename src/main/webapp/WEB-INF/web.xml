@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- Controller -->
+	<!-- public class DispatcherServlet extends HttpServlet{ public void init(ServletConfig 
+		config){ String path=config.getInitParameter("contextConfigLocation"); if(path==null){ 
+		path="/WEB-INF/<servlet-name>-servlet.xml"; //지정안하면 dispatcher-servlet.xml이 
+		생성된다. } WebApplicationContext(path); } run(){ //thread service(); } public 
+		void service(Req, Res){ } public void destroy(){ } } -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 파일 지정 org.springframework.web.servlet.DispatcherServlet.class -->
+		<!-- <init-param> <param-name>contextConfigLocation</param-name> <param-value>/WEP-INF/config/application-context.xml</param-value> 
+			</init-param> -->
+		<!-- <init-param> <param-name>contextConfigLocation</param-name> <param-value>/WEP-INF/config/application-*.xml</param-value> 
+			</init-param> -->
+		<!-- xml이 여러개면 반드시 등록해줘야 한다. -->
+
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- post 한글 변환  req.setCharacterEncoding()이다. -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>
