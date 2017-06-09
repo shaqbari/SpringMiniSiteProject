@@ -35,7 +35,7 @@
                                    <li><a href="join.do">회원관리</a></li>
                                    <li><a href="loc.do">지역별 맛집</a></li>
                                    <li><a href="best.do">베스트 맛집</a></li>
-                                   <li><a href="board.do">커뮤니티</a></li>
+                                   <li><a href="board_list.do">커뮤니티</a></li>
                                    <li><a href="news.do">뉴스검색</a></li>
                                  </ul>
                                  

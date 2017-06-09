@@ -14,14 +14,59 @@
 	
 	<context:annotation-config/>
 	<context:component-scan base-package="com.sist.*"/>
+	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/"
 		p:suffix=".jsp"	
 	/>
 	
+	<util:properties id="db" location="/WEB-INF/db.properties"/>
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+		p:driverClassName="#{db['driver']}"
+		p:url="#{db['url']}"
+		p:username="#{db['username']}"
+		p:password="#{db['password']}"
+	/>
+	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="ds"
+	/>
+	<bean id="bMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf"
+		p:mapperInterface="com.sist.databoard.dao.DataBoardMapper"
+	/>
+	<!-- 	
+		class MapperFactoryBean implements DataBoardMapper{ //p:mapperInterface="com.sist.databoard.dao.DataBoardMapper"
+			private SqlSessessionFactory ssf;
+			
+			//p:sqlSessionFactory-ref="ssf"
+			public void setSsf(SqlSessionFactory ssf){
+				this.ssf=ssf;
+			}
+			
+			public List<DataBoardVO> databoardListData(Map map){
+				SqlSession session=ssf.openSession();
+				
+				return session.selectList(@Select());
+			
+				=>PreparedStatement ps;
+				  ps=conn.preparedStatemnet(sql);//어떤 sql
+				  ResultSet rs=ps.executeQuery();
+				  while(rs.next){
+				  	BoardVO vo=new BoardVO();//어떤 VO
+				  	setName
+				  }
+			
+			}
+		}
+	 -->
+	
+	<!-- 업로드 담당하는 클래스 메모리 할당 id를 동일하게 입력해야 한다. -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	
 	<!--
 		회사 교육 : 회사소스 보고 순서대로 브리핑
-		1) Tomcat => DispatcherSevlet(web.xml)  
+		1) Tomcat => DispatcherSevlet(web.xml)  s
 		   ======       
 		   main() => web.xml => framework확인
 		             =DispatcherServlet(Spring)
