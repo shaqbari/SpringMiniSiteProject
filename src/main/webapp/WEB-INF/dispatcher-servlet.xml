@@ -1,105 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
-	
-	<context:annotation-config/>
-	<context:component-scan base-package="com.sist.*"/>
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/"
-		p:suffix=".jsp"	
-	/>
-	
-	<util:properties id="db" location="/WEB-INF/db.properties"/>
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.sist.*" />
+
+	<!-- responseBody한글깨짐 방지 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters> <!-- @ResponseBody로 String 처리할때 한글처리 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/" p:suffix=".jsp" />
+
+	<util:properties id="db" location="/WEB-INF/db.properties" />
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
-		p:driverClassName="#{db['driver']}"
-		p:url="#{db['url']}"
-		p:username="#{db['username']}"
-		p:password="#{db['password']}"
-	/>
+		p:driverClassName="#{db['driver']}" p:url="#{db['url']}" p:username="#{db['username']}"
+		p:password="#{db['password']}" />
 	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
-		p:dataSource-ref="ds"
-	/>
+		p:dataSource-ref="ds" />
 	<bean id="bMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
-		p:sqlSessionFactory-ref="ssf"
-		p:mapperInterface="com.sist.databoard.dao.DataBoardMapper"
-	/>
-	<!-- 	
-		class MapperFactoryBean implements DataBoardMapper{ //p:mapperInterface="com.sist.databoard.dao.DataBoardMapper"
-			private SqlSessessionFactory ssf;
-			
-			//p:sqlSessionFactory-ref="ssf"
-			public void setSsf(SqlSessionFactory ssf){
-				this.ssf=ssf;
-			}
-			
-			public List<DataBoardVO> databoardListData(Map map){
-				SqlSession session=ssf.openSession();
-				
-				return session.selectList(@Select());
-			
-				=>PreparedStatement ps;
-				  ps=conn.preparedStatemnet(sql);//어떤 sql
-				  ResultSet rs=ps.executeQuery();
-				  while(rs.next){
-				  	BoardVO vo=new BoardVO();//어떤 VO
-				  	setName
-				  }
-			
-			}
-		}
-	 -->
-	
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.databoard.dao.DataBoardMapper" />
+	<bean id="mMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.member.dao.MemberMapper" />
+	<!-- class MapperFactoryBean implements DataBoardMapper{ //p:mapperInterface="com.sist.databoard.dao.DataBoardMapper" 
+		private SqlSessessionFactory ssf; //p:sqlSessionFactory-ref="ssf" public 
+		void setSsf(SqlSessionFactory ssf){ this.ssf=ssf; } public List<DataBoardVO> 
+		databoardListData(Map map){ SqlSession session=ssf.openSession(); return 
+		session.selectList(@Select()); =>PreparedStatement ps; ps=conn.preparedStatemnet(sql);//어떤 
+		sql ResultSet rs=ps.executeQuery(); while(rs.next){ BoardVO vo=new BoardVO();//어떤 
+		VO setName } } } -->
+
 	<!-- 업로드 담당하는 클래스 메모리 할당 id를 동일하게 입력해야 한다. -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
-	
-	<!--
-		회사 교육 : 회사소스 보고 순서대로 브리핑
-		1) Tomcat => DispatcherSevlet(web.xml)  s
-		   ======       
-		   main() => web.xml => framework확인
-		             =DispatcherServlet(Spring)
-		             =FilterDispatcher(Struts2)
-		             =ActionServlet(Struts)
-		
-		2) 설정파일
-			Spring : applicationContext.xml => WEB-INF 
-			Struts2 : struts.xml => SRC
-			Struts : struts-config.xml=> SRC
-			
-		3) 클래스 분석
-		   =======
-		   Model => DAO => JSP
-		
-		4) JSP 분석
-		
-		
-		Spring의 경우
-		1) DispatcherServlet : req받음
-		==========================================
-			1-1) Model찾기 => HandlerMapping
-		2) Controller(Model) :  req, res <==> DAO 
-		3) req.setAttribute(), session
-		==========================================
-		4) DispatcherServlet
-		5) JSP 찾기 ==> ViewResolver : jsp path넘김
-		==========================================
-		
-		
-	  -->
-	<!-- <bean id="viewResolver"
-		class="ViewResolver"
-	/> -->
-	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+
+	<!-- 회사 교육 : 회사소스 보고 순서대로 브리핑 1) Tomcat => DispatcherSevlet(web.xml) s ====== 
+		main() => web.xml => framework확인 =DispatcherServlet(Spring) =FilterDispatcher(Struts2) 
+		=ActionServlet(Struts) 2) 설정파일 Spring : applicationContext.xml => WEB-INF 
+		Struts2 : struts.xml => SRC Struts : struts-config.xml=> SRC 3) 클래스 분석 ======= 
+		Model => DAO => JSP 4) JSP 분석 Spring의 경우 1) DispatcherServlet : req받음 ========================================== 
+		1-1) Model찾기 => HandlerMapping 2) Controller(Model) : req, res <==> DAO 3) 
+		req.setAttribute(), session ========================================== 4) 
+		DispatcherServlet 5) JSP 찾기 ==> ViewResolver : jsp path넘김 ========================================== -->
+	<!-- <bean id="viewResolver" class="ViewResolver" /> -->
+
 </beans>

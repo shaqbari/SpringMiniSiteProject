@@ -42,7 +42,7 @@
                            </div><!--top nav end--> 
                            
                            
-                           <div id="search_area"><!--search box--> 
+                          <!--  <div id="search_area">search box 
                            
                                   <form action="" method="get" id="form_search">
                                   
@@ -53,7 +53,7 @@
                                   
                                   </form>
                           
-                           </div><!--search box end--> 
+                           </div>search box end  -->
                            
             
 				</div><!--menu top end-->   

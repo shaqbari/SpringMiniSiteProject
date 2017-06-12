@@ -29,12 +29,12 @@
 				<tr class="dataTr">
 					<td width="10%" align=center>${vo.no}</td>
 					<td width="45%" align=center>
-						${vo.subject }
+						<a href="board_content.do?no=${vo.no }&page=${curpage}">${vo.subject }</a>
 					</td>
 					<td width="15%" align=center>${vo.name}</td>
 					<td width="20%" align=center>
-						${vo.regdate}
-						<%-- <fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/> --%>
+						<%-- ${vo.regdate} --%>
+						<fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/>
 					</td>
 					<td width="10%" align=center>${vo.hit}</td>	
 				</tr>

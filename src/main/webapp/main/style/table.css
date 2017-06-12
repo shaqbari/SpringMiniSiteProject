@@ -42,6 +42,10 @@
 	text-decoration: none;
 	color:black;
 }
+#table_content a.post{
+	text-decoration: none;
+	color:white;
+}
 #table_content a:HOVER{
 	text-decoration: underline;
 	color:green;

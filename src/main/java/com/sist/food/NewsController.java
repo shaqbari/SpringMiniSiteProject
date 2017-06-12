@@ -24,6 +24,7 @@ public class NewsController {
 		}
 		List<Item> list=nm.newsAllData(data);
 		
+		
 		model.addAttribute("list", list); //news.jsp를 include했으므로 그냥 보내도 된다. 
 		model.addAttribute("main_jsp", "news/news.jsp");
 		
