@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sist.databoard.dao.DataBoardFileVO;
 import com.sist.databoard.dao.DataBoardService;
 import com.sist.databoard.dao.DataBoardVO;
+import com.sist.databoard.dao.DataReplyVO;
 
 import java.util.*;
 
@@ -42,6 +43,12 @@ public class DataBoardController {
 		map.put("start", start);
 		map.put("end", end);
 		List<DataBoardVO> list=service.databoardListData(map);
+		for(DataBoardVO vo: list){
+			vo.setReplycount(service.replyCount(vo.getNo()));
+			
+		}
+		
+		
 		model.addAttribute("list", list);
 		
 		System.out.println("regdate : "+list.get(0).getRegdate());
@@ -134,6 +141,9 @@ public class DataBoardController {
 			vo.setFileList(list);
 		}
 		
+		List<DataReplyVO> rList=service.replyListData(no);
+				
+		model.addAttribute("rList", rList);
 		model.addAttribute("vo", vo);
 		model.addAttribute("page", page);
 		model.addAttribute("main_jsp", "board/board_content.jsp"); //화면 바꾸기

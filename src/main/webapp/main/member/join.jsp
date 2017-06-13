@@ -23,7 +23,18 @@
 					, width:450
 					, heigth: 400					
 				});				
-			});			
+			});	
+			
+			$('#idcheckBtn').click(function(){
+				Shadowbox.open({
+					content:"idcheck.do"//로 가야 jsp파일을 준다.
+					, player:'iframe'
+					, title:'아이디중복 체크'
+					, width:330
+					, heigth:150					
+				});				
+			});
+			
 		});
 	
 	</script>
@@ -59,8 +70,10 @@
 						<tr>
 							<th width="20%" align="right">성별</th>
 							<td width="80%" align="left">
-								<input type="radio" name="sex" value="남자 " checked/>남자
-								<input type="radio" name="sex" value="여자 " />여자
+								<!-- <input type="radio" name="sex" value="남자 " checked/>남자
+								<input type="radio" name="sex" value="여자 " />여자 default제약조건일때 공백유의하자!-->
+								<input type="radio" name="sex" value="남자" checked/>남자
+								<input type="radio" name="sex" value="여자" />여자
 							</td>							
 						</tr>
 						<tr>

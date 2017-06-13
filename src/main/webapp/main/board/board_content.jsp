@@ -7,7 +7,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="style/table.css">
+	<link rel="stylesheet" type="text/css" href="style/table.css">
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script>
+		var i=0;
+		var u=0;
+		
+		$(function(){
+			$('.modify').click(function(){
+				var no=$(this).attr("value");	
+				if (u==0) {
+					$('#u'+no).show();
+					u=1;
+					
+				}else{
+					$('#u'+no).hide();
+					u=0;
+					
+				}
+			});	
+			
+			$('.insert').click(function(){
+				var no=$(this).attr("value");	
+				if (i==0) {
+					$('#i'+no).show();
+					i=1;
+					
+				}else{
+					$('#i'+no).hide();
+					i=0;
+					
+				}
+				
+			});			
+		});
+		
+	</script>
 </head>
 <body>
 	<center>
@@ -61,12 +96,71 @@
 					<a href="board_list.do?page=${page }">목록</a>
 				</td>
 			</tr>
-		</table>		
-		<table id="table_content" width="500">
-			<div id="reply_view">
-				<!--  회원가입 처리후 댓글 처리 -->
-			</div>
-		</table>		
+		</table>			
+		<div id="reply_view">
+			<!--  회원가입 처리후 댓글 처리 -->
+			<table id="table_content" width=500>
+				<c:forEach var="rvo" items="${rList }">
+					<tr>
+						<td align="left" width="70%">
+							<c:if test="${rvo.group_tab>0 }"><!-- 댓글달렸을때 앞에서 부터 들여쓰기 -->
+								<c:forEach var="i" begin="1" end="${rvo.group_tab}">
+									&nbsp;&nbsp;
+								</c:forEach>
+								<img src="images/icon_reply.gif"/>
+							</c:if>
+							${rvo.name }&nbsp;(${rvo.strDay }) <br>
+							
+							<c:if test="${rvo.group_tab>0 }"><!-- 댓글달렸을때 앞에서 부터 들여쓰기 -->
+								<c:forEach var="i" begin="1" end="${rvo.group_tab}">
+									&nbsp;&nbsp;
+								</c:forEach>
+							</c:if>
+							${rvo.msg }
+							
+						</td>
+						<td align="right" width="30%">
+							<c:if test="${sessionScope.id==rvo.id }"><!-- 본인일때만 수정삭제 가증하게 한다. -->
+								<a href="#" class="modify" value="${rvo.no }">└수정</a>&nbsp;└삭제
+							</c:if> <!-- a태그에는 value태그가 없지만 html에서는 마음대로 태그를 만들어낼 수 있다. -->
+							<a href="#" class="insert" value="${rvo.no }">└댓글</a>
+						</td>
+					</tr>
+					<tr id="i${rvo.no}" style="display: none">
+						<td colspan="2" >
+							<div style="float: left; height: 40px">
+								<textarea rows="3" cols="60" name="msg"></textarea>
+							</div>
+							<div>
+								<input type="button" value="댓글쓰기" style="height: 50px" />
+							</div>
+						</td>
+					</tr>
+					<tr id="u${rvo.no}" style="display: none">
+						<td colspan="2" >
+							<div style="float: left; height: 40px">
+								<textarea rows="3" cols="60" name="msg"></textarea>
+							</div>
+							<div>
+								<input type="button" value="수정하기" style="height: 50px" />
+							</div>
+						</td>
+					</tr>
+				</c:forEach>					
+				<c:if test="${sessionScope.id!=null }">
+					<tr>
+						<td colspan="2">
+							<div style="float: left; height: 40px">
+								<textarea rows="3" cols="60" name="msg"></textarea>
+							</div>
+							<div>
+								<input type="button" value="댓글쓰기" style="height: 50px" />
+							</div>
+						</td>
+					</tr>
+				</c:if>
+			</table>				
+		</div>				
 	</center>
 </body>
 </html>

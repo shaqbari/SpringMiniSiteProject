@@ -17,8 +17,8 @@ public class DataBoardService {
 	@Autowired
 	private DataBoardMapper bMapper; //dispatcher-servlet.xml에서 interface를 구현하고 ssf를 받은걸 할당해 준다.
 	
-	/*@Autowired
-	private DataReplyMapper rMapper;*/
+	@Autowired
+	private DataReplyMapper rMapper;
 	
 	public List<DataBoardVO> databoardListData(Map map){		
 		return bMapper.databoardListData(map);
@@ -70,4 +70,25 @@ public class DataBoardService {
 		bMapper.databoardUpdate(vo);
 	}
 	
+	public int replyCount(int bno) {
+		
+		return rMapper.replyCount(bno);
+	}
+	
+	public List<DataReplyVO> replyListData(int bno){
+		
+		return rMapper.replyListData(bno);
+	};
+	
 }
+
+
+
+
+
+
+
+
+
+
+

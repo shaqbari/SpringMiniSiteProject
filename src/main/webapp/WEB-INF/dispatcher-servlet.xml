@@ -40,6 +40,8 @@
 		p:dataSource-ref="ds" />
 	<bean id="bMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.databoard.dao.DataBoardMapper" />
+	<bean id="rMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.databoard.dao.DataReplyMapper" />
 	<bean id="mMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.member.dao.MemberMapper" />
 	<!-- class MapperFactoryBean implements DataBoardMapper{ //p:mapperInterface="com.sist.databoard.dao.DataBoardMapper" 

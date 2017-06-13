@@ -29,4 +29,11 @@ public class FoodMainController {
 		
 	}
 	
+	@RequestMapping("main/loc.do")
+	public String main_loc(Model model ){
+		
+		model.addAttribute("main_jsp", "food/food_loc.jsp");
+		
+		return "main/main";
+	}
 }

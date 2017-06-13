@@ -12,7 +12,7 @@
 		$(function(){
 			$('#findBtn').click(function(){
 				var dong=$('#dong').val();
-				if (dong.trim()=="") {
+				if (dong.trim()=="") { //trim은 공백제거
 					alert("동/읍/면을 입력하세요");
 					return;
 				}

@@ -29,7 +29,12 @@
 				<tr class="dataTr">
 					<td width="10%" align=center>${vo.no}</td>
 					<td width="45%" align=center>
-						<a href="board_content.do?no=${vo.no }&page=${curpage}">${vo.subject }</a>
+						<a href="board_content.do?no=${vo.no }&page=${curpage}">
+							${vo.subject }
+						</a>
+						<c:if test="${vo.replycount>0 }"><!--0이상일때만 출력  -->
+							(${vo.replycount })
+						</c:if>
 					</td>
 					<td width="15%" align=center>${vo.name}</td>
 					<td width="20%" align=center>

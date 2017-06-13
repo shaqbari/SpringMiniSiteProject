@@ -34,10 +34,20 @@ public class DataBoardVO {
 	private String filename;
 	private String filesize;
 	private int filecount;
+	
+	private int replycount;
+	
 	private List<MultipartFile> upload;//여기서 new를 하면 null값이 안들어 간다.
 	private List<DataBoardFileVO> fileList=new ArrayList<DataBoardFileVO>(); //출력하기 쉽게 filename과 filesize를 ,로 잘라 저장
-	
-	
+		
+
+	public int getReplycount() {
+		return replycount;
+	}
+
+	public void setReplycount(int replycount) {
+		this.replycount = replycount;
+	}
 
 	public List<DataBoardFileVO> getFileList() {
 		return fileList;

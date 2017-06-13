@@ -9,12 +9,12 @@
 	<script src="../shadow/js/shadowbox.js"></script>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script>
-		/* Shadowbox.init({
-			players:["iframe"]			
-		}); */
 		Shadowbox.init({
-			players:["iframe"]
+			players:["iframe"]			
 		});
+		/* Shadowbox.init({
+			players:["iframe"]
+		}); */
 		$(function(){
 			$('#btn').click(function(){
 				//alert("xx");
