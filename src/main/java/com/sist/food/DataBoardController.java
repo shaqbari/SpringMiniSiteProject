@@ -289,4 +289,59 @@ public class DataBoardController {
 		
 	}
 	
+	@RequestMapping("main/board_delete.do")
+	public String board_delete(int no, int page, Model model){
+		
+		model.addAttribute("no", no);
+		model.addAttribute("page", page);
+		
+		return "main/board/board_delete";
+	}
+	
+	
+	@RequestMapping("main/board_delete_ok.do")
+	public String board_delete_ok(int no, int page, String pwd, Model model){
+		
+		int res=0;
+		String db_pwd=service.databoardGetPwd(no);
+		
+		
+		if (db_pwd.equals(pwd)) {
+			//파일삭제  위의 코드 이용
+			DataBoardVO vo=service.databoardGetFileInfo(no);
+			if (vo.getFilecount()>0) {
+				try {
+					String[] files=vo.getFilename().split(",");
+					for (String f : files) {
+						File file=new File("c:\\Upload\\"+f);
+						file.delete();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//댓글삭제
+			//게시물삭제
+			service.boardDelete(no);
+			
+			res=1;			
+		}else {
+			res=2;
+		}
+		model.addAttribute("res", res);
+		
+		return "main/board/delete_result";
+	}
 }
+
+
+
+
+
+
+
+
+
+

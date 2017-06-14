@@ -1,5 +1,6 @@
 package com.sist.databoard.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -68,5 +69,9 @@ public interface DataBoardMapper {
 	public void databoardUpdate(DataBoardVO vo);
 	
 	//삭제하기
+	@Delete("Delete From dataBoard"
+			+ " Where no=#{no}")
+	public void dataBoardDelete(int no);
+	
 	
 }

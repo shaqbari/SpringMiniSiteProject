@@ -18,7 +18,9 @@
             
                     <h2>${vo.category } </h2>
                     <span style="font-size: 9pt">${vo.subject }</h3>
-                    <a href="https://www.mangoplate.com${vo.link }"><img src="${vo.poster }" alt="" width=275 height=125/></a>
+                    <a href="foodmain.do?title=${vo.category }&link=${vo.link }">
+                    	<img src="${vo.poster }" alt="" width=275 height=125/>
+                    </a>
             		 
             
             

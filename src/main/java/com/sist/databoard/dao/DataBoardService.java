@@ -80,6 +80,55 @@ public class DataBoardService {
 		return rMapper.replyListData(bno);
 	};
 	
+	public void replyNewInsert(DataReplyVO vo){
+		
+		rMapper.replyNewInsert(vo);
+		
+	};
+	
+	public void replyUpdate(DataReplyVO vo){
+		
+		rMapper.replyUpdate(vo);
+	};
+	
+	//여기서 댓글의 댓글 삽입 메소드 조합
+	public void replyReInsert(int root, DataReplyVO vo){
+		//1.부모댓글정보가져오기
+		DataReplyVO pvo=rMapper.replyParentInfoData(root);
+		
+		//2.상위 댓글의 이전의 댓글들의 gs증가
+		rMapper.replyStepIncrement(pvo);
+		
+		//3. 댓글의 댓글 삽입
+		vo.setGroup_id(pvo.getGroup_id());
+		vo.setGroup_step(pvo.getGroup_step()+1);
+		vo.setGroup_tab(pvo.getGroup_tab()+1);
+		vo.setRoot(root);
+		rMapper.replyReInsert(vo);
+		//4. 상위 댓글의 depth증가
+		rMapper.replyDepthIncrement(root);
+		
+	}
+	
+	//원래 트랜잭션 처리해야함
+	public void replyDelete(int no){
+		DataReplyVO vo=rMapper.replyGetDepthData(no);//depth와 root값이 들어있다.
+		
+		if (vo.getDepth()==0) {
+			rMapper.replyDelete(no);			
+		}else{
+			rMapper.replyMsgUpdate(no);
+		}
+		rMapper.replyDepthDecrement(vo.getRoot());
+		
+	}
+	
+	public void boardDelete(int no){
+		rMapper.replyAllDelete(no);
+		bMapper.dataBoardDelete(no);
+		
+	}
+	
 }
 
 

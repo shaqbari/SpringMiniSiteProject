@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sist.food.dao.CategoryVO;
 import com.sist.food.dao.FoodManager;
+import com.sist.food.dao.FoodVO;
 
 
 @Controller
@@ -36,4 +37,42 @@ public class FoodMainController {
 		
 		return "main/main";
 	}
+	
+	@RequestMapping("main/foodmain.do")
+	public String main_foodpage(String title, String link, Model model){
+		//test
+		/*List<CategoryVO> list=fmgr.categoryAllData();
+		model.addAttribute("list", list);*/	
+		
+		
+		List<FoodVO> list=fmgr.categoryDetail(link);
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("title", title);
+		model.addAttribute("main_jsp", "food/foodmain.jsp");
+		
+		return "main/main";
+		
+	}
+	
+	@RequestMapping("main/fooddetail.do")
+	public String main_fooddetail(String link, String poster, Model model){
+		FoodVO vo=fmgr.foodDetailData(link);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("poster", poster);
+		model.addAttribute("main_jsp", "food/fooddetail.jsp");		
+		return "main/main";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
