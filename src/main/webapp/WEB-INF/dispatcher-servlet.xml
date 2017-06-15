@@ -44,6 +44,8 @@
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.databoard.dao.DataReplyMapper" />
 	<bean id="mMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.member.dao.MemberMapper" />
+	<bean id="fMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf" p:mapperInterface="com.sist.food.dao.FoodMapper" />
 	<!-- class MapperFactoryBean implements DataBoardMapper{ //p:mapperInterface="com.sist.databoard.dao.DataBoardMapper" 
 		private SqlSessessionFactory ssf; //p:sqlSessionFactory-ref="ssf" public 
 		void setSsf(SqlSessionFactory ssf){ this.ssf=ssf; } public List<DataBoardVO> 

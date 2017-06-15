@@ -1,5 +1,6 @@
 package com.sist.food;
 
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ public class DataReplyController {
 	@Autowired
 	private DataBoardService service;
 	
+			
 	@RequestMapping("main/reply_new_insert.do")
+	//@PreDestroy 메소드 권한 걸어서 로그인시에만 이 메소드 사용가능하도록 해야 한다. db차원에서도 권한별로 차등적용 가능 
 	public String reply_new_insert(int bno, int page, String msg, HttpSession session){
 		
 		DataReplyVO vo=new DataReplyVO();

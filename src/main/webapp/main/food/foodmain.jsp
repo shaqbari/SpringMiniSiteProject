@@ -6,7 +6,29 @@
 <head>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="js/js/jquery.easing.1.3.js"></script>
+
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
+	google.charts.load("current", {packages:["corechart"]});
+	google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+	  var data = google.visualization.arrayToDataTable([
+	    ['음식점', '별점 현황'],
+	    <c:forEach var="vo" items="${list}">
+	    ['<c:out value="${vo.name}"/>',   <c:out value="${vo.score}"/> ],
+	 	</c:forEach>
+	  ]);
+
+	  var options = {
+	    title: '음식점별 별점 현황',
+	    is3D:true
+	  };
+	
+	  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+	  chart.draw(data, options);
+	}
+
+
 
 $(document).ready(function() {
 
@@ -175,4 +197,6 @@ $(document).ready(function() {
 	
 	<c:set var="i" value="${i+1 }"/>	
 </c:forEach>
+
 </div>
+<div id="donutchart" style="width: 900px; margin-left:30px; height: 500px;"></div>
