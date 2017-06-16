@@ -1,11 +1,14 @@
 package com.sist.food;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sist.food.dao.CategoryVO;
 import com.sist.food.dao.FoodDAO;
 import com.sist.food.dao.FoodManager;
+import com.sist.food.dao.FoodResVO;
 import com.sist.food.dao.FoodReserveVO;
 import com.sist.food.dao.FoodVO;
 
@@ -138,6 +142,7 @@ public class FoodMainController {
 		}
 		int y=Integer.parseInt(strYear);
 		int m=Integer.parseInt(strMonth);
+		int d=Integer.parseInt(st.nextToken());
 		
 		//week이번달의 시작요일, lastday이번달의 마지막 날짜도 필요
 		//전년도까지 총날수
@@ -158,6 +163,16 @@ public class FoodMainController {
 		}
 		total++;
 		
+		String res_day=dao.reserveDayData(no);
+		String[] rd=res_day.split(",");
+		boolean[] bCheck=new boolean[31];//기본값은 false;
+		for (int i=0; i<rd.length; i++) {
+			bCheck[Integer.parseInt(rd[i])-1]=true; //rd[i]-1번째만 true로 바꾼다.
+			
+			
+		}
+		
+		
 		int week=total%7;
 		model.addAttribute("year", y);
 		model.addAttribute("month", m);
@@ -166,8 +181,62 @@ public class FoodMainController {
 		String[] strWeek={"일", "월", "화", "수", "목", "금", "토"};
 		model.addAttribute("strWeek", strWeek);//출력할수 있게 로직을 모두 보내준다.
 		
+		model.addAttribute("rd", bCheck);
+		model.addAttribute("today", d);//오늘 날짜
+		
+		System.out.println("rd : "+rd);
+		System.out.println("today :"+d);
+		
 		return "main/food/reserve_date";
 	}
+	
+	@RequestMapping("main/reserve_time.do")
+	public String reserve_time(int day, Model model){
+		List<String> list=new ArrayList<String>();
+		String resTime=dao.reserveTimeData(day);
+		String[] rt=resTime.split(",");
+		
+		Date date=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("hh:mm");
+		
+		for(String s : rt){
+			System.out.println("s="+s);
+			String realT=dao.reserveRealTime(Integer.parseInt(s));
+			
+			//null값이면 공백들어가므로 그것을 방지한다.
+			if (realT!=null) {
+				//realT.isEmpty();
+				System.out.println("realT="+realT);
+				list.add(realT);
+			}
+			
+			
+		}
+		
+		model.addAttribute("list", list);
+		
+		return "main/food/reserve_time";
+	}
+	
+	@RequestMapping("main/reserve_inwon.do")
+	public String reserve_inwon(Model model){
+		
+		return "main/food/reserve_inwon";
+	}
+	
+	@RequestMapping("main/reserve_insert.do")
+	public String reserve_insert(FoodResVO vo, HttpSession session, Model model){
+		
+		//default중간을mypage로 변경
+		dao.foodResInsert(vo);
+		
+		
+		model.addAttribute("main_jsp", "food/mypage.jsp");
+		
+		return "main/main";
+	}
+	
+	
 }
 
 

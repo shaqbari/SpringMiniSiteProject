@@ -51,16 +51,14 @@
 					</td>
 				</tr>
 			</table>
-			<table id="tabale_content" width="900" height="500">
+			<table id="table_content" width="900" height="500">
 				<tr>
 					<td width="15%" height="400" valign="top">
 						<table id="table_content" width="135">
 							<tr>
 								<th>맛집지역현황</th>
 							</tr>
-							<div id="gu_view">
-								
-							</div>
+							<div id="gu_view"></div>
 							
 						</table>
 					</td>
@@ -69,25 +67,59 @@
 							<tr>
 								<th>맛집목룍</th>
 							</tr>
-							<div id="list_view">
-							
-							</div>						
 						</table>
+						<div id="list_view"></div>						
 					</td>
 					<td width="30%" height="400" valign="top">
 						<table id="table_content" width="270">
 							<tr>
 								<th>예약일</th>
 							</tr>
-							
 						</table>
+						<div id="reserve_date"></div>
 					</td>
 					<td width="20%" rowspan="2" valign="top">
-					<table id="table_content" width="180">
+						<table id="table_content" width="180">
 							<tr>
 								<th>예약정보</th>
+							</tr>							
+						</table>
+						<table id="table_content">
+							<tr>
+								<td id="r_poster">
+									<img src="#" width="160" height="120" id="rp" />
+								</td>
 							</tr>
-							
+							<tr>
+								<td id="r_name" value=""><!-- db에 저장할때는 no이용. reserve_list.jsp에서  js로 입력해 줄것이다. -->
+									업체명 :
+								</td>
+							</tr>
+							<tr>
+								<td id="r_addr">
+									주소 :
+								</td>
+							</tr>
+							<tr>
+								<td id="r_day">
+									예약일 :
+								</td>
+							</tr>
+							<tr>
+								<td id="r_time">
+									예약시간 :
+								</td>
+							</tr>
+							<tr>
+								<td id="r_inwon">
+									성인&nbsp;:&nbsp;,&nbsp;아동&nbsp;:
+								</td>
+							</tr>
+							<tr id="reserve_btn" style="display: none">
+								<td align="center">
+									<input type="button" value="예약하기" />
+								</td>
+							</tr>
 						</table>
 					</td>
 				</tr>
@@ -96,17 +128,17 @@
 						<table id="table_content" width="450">
 							<tr>
 								<th>시간정보</th>
-							</tr>
-							
+							</tr>							
 						</table>
+						<div id="time_view"></div>
 					</td>
 					<td width="30%" height="100" valign="top">
 						<table id="table_content" width="270">
 							<tr>
 								<th>인원정보</th>
-							</tr>
-							
+							</tr>							
 						</table>
+						<div id="inwon_view"></div>
 					</td>
 				</tr>
 				

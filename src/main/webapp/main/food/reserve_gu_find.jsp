@@ -24,6 +24,7 @@
 					$('#list_view').html(response);//이파일은 foodreserve에 속하기 때문에  foodreserve에 있는 id를 쓸수 있다.
 					//소스보기에는 안보이지만 가상으로 기억하고 있다.
 					
+					$('#r_addr').text('주소 : '+gu);
 				}
 				
 			});
@@ -37,7 +38,7 @@
 	<center>
 		<div style="overflow-y:auto; height:330px "> <!-- style에서는 px를 써야 한다. -->
 			<table id="table_content" width="135">
-				<c:forEach var="gu" items="#{list }">
+				<c:forEach var="gu" items="${list }">
 					<tr class="dataTr">
 						<td><span class="res_gu" val="${kind}">${gu }</span></td>
 					</tr>

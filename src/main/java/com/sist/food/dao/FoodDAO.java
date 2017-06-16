@@ -21,5 +21,31 @@ public class FoodDAO {
 		
 		return fMapper.reserveListData(map);
 	};
+	
+	public String reserveDayData(int no){
+		
+		return fMapper.reserveDayData(no);
+	};
+	
+	public String reserveTimeData(int rd){
+		
+		return fMapper.reserveTimeData(rd);
+	};
+	
+	public String reserveRealTime(int rt){
+		
+		return fMapper.reserveRealTime(rt);
+	};
 
-}
+	
+	public void foodResInsert(FoodResVO vo){
+		
+		fMapper.foodResInsert(vo);
+	};
+	
+	
+	public List<FoodResVO> foodMyPage(String id){;
+
+		return fMapper.foodMyPage(id);
+
+	}
