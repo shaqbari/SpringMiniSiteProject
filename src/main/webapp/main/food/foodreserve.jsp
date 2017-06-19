@@ -26,7 +26,32 @@
 				}
 				
 			})
+			
+			
 		});
+		
+		$('#rbtn').click(function(){
+			var no=$('#r_name').attr("value");
+			var day=$('#r_day').text();			
+			var time=$('#r_time').text();			
+			var inwon=$('#r_inwon').text();			
+			var json={"house_no":no, "res_date":day, "res_time":time, "res_inwon":inwon};
+			
+			
+			$.ajax({
+				type:'post'
+				, url:'reserve_insert.do'
+				, data: json
+				, success:function(response){
+					alert(response);
+					
+					//location.href="mypage.do?id"+response;//session이용해서 보안강화
+					location.href="mypage.do";
+					
+				}
+				
+			})
+		})
 		
 	});
 </script>
@@ -73,6 +98,7 @@
 					<td width="30%" height="400" valign="top">
 						<table id="table_content" width="270">
 							<tr>
+								<!-- <th id="r_time">예약일</th> 아이디가 중복되면 적용되지 않는다.-->
 								<th>예약일</th>
 							</tr>
 						</table>
@@ -92,32 +118,32 @@
 							</tr>
 							<tr>
 								<td id="r_name" value=""><!-- db에 저장할때는 no이용. reserve_list.jsp에서  js로 입력해 줄것이다. -->
-									업체명 :
+									업체명:
 								</td>
 							</tr>
 							<tr>
 								<td id="r_addr">
-									주소 :
+									주소:
 								</td>
 							</tr>
 							<tr>
 								<td id="r_day">
-									예약일 :
+									예약일:
 								</td>
 							</tr>
 							<tr>
 								<td id="r_time">
-									예약시간 :
+									예약시간:
 								</td>
 							</tr>
 							<tr>
 								<td id="r_inwon">
-									성인&nbsp;:&nbsp;,&nbsp;아동&nbsp;:
+									성인: ,아동:
 								</td>
 							</tr>
 							<tr id="reserve_btn" style="display: none">
 								<td align="center">
-									<input type="button" value="예약하기" />
+									<input type="button" value="예약하기" id="rbtn"/>
 								</td>
 							</tr>
 						</table>

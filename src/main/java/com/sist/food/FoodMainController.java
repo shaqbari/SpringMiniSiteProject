@@ -227,16 +227,56 @@ public class FoodMainController {
 	@RequestMapping("main/reserve_insert.do")
 	public String reserve_insert(FoodResVO vo, HttpSession session, Model model){
 		
+		System.out.println("inwon : "+vo.getRes_inwon());
+		vo.setRes_date(vo.getRes_date().substring(vo.getRes_date().indexOf(":")+1));//예약일:을 자른다.
+		vo.setRes_time(vo.getRes_time().substring(vo.getRes_time().indexOf(":")+1));
+		vo.setId((String)session.getAttribute("id"));
+						
 		//default중간을mypage로 변경
-		dao.foodResInsert(vo);
+		dao.foodResInsert(vo);		
 		
+		//model.addAttribute("id", (String)session.getAttribute("id"));//세션에저장되어 있으므로 보내도되구 안보내도 된다.그리고url에 id가 노출된다.
+		//secure coding에 해당 
+		//1) id pwd노출x session에 등록
+		//2) VO private and getter/setter 캡슐화
+		//3) 배포 할때는 sysout 지운다.!
+		//4) jsoup데이터 긁을때 꺽쇠는 문자로?
 		
+		return "main/food/reserve_ok";
+	}
+	
+	@RequestMapping("main/mypage.do")
+	public String reserve_mypage(HttpSession session, Model model){
+		
+		List<FoodResVO> list=dao.foodMyPage((String)session.getAttribute("id"));
+		model.addAttribute("list", list);
 		model.addAttribute("main_jsp", "food/mypage.jsp");
-		
+				
 		return "main/main";
 	}
 	
-	
+	/***************************원래는 사용자와 관리자의 예약 확인 테이블이 달라야 한다. 이때 자동으로 들어가게triger이용한다. **************************/
+	@RequestMapping("main/adminpage.do")
+	public String reserve_adminpage(Model model){
+		
+		List<FoodResVO> list=dao.foodAdminPage();
+		model.addAttribute("list", list);
+		model.addAttribute("main_jsp", "food/adminpage.jsp");
+		
+		return "main/main";
+	}	
+	@RequestMapping("main/adminpage_ok.do")
+	public String reserve_adminpage_ok(String[] res_ck){//checkbox로 넘어오므로 배열로 받아야 한다. getParameterValues();
+		
+		//Mybatis에서 자체적으로 foreach로도 넣을 수 있다.
+		for(int i=0; i<res_ck.length; i++){
+			dao.resStateChange(Integer.parseInt(res_ck[i]));
+			
+		}
+		
+		return "redirect:/main/adminpage.do";
+	}
+	/***************************원래는 사용자와 관리자의 예약 확인 테이블이 달라야 한다. 이때 자동으로 들어가게triger이용한다. **************************/
 }
 
 

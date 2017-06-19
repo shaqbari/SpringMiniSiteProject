@@ -23,7 +23,8 @@ $(function(){
 				$('#time_view').html(response);
 				
 				//총예약정보에 입력
-				$('#r_day').text("예약일 : "+year+"-"+month+"-"+day);
+				//$('#r_day').text("예약일 : "+year+"-"+month+"-"+day);
+				$('#r_day').text("예약일:"+year+"-"+month+"-"+day);//:에서 자를것이므로 :다음에 공백있으면 안된다.
 			}
 			
 		});
@@ -101,10 +102,12 @@ $(function(){
 						<c:choose>
 							<c:when test="${rd[i-1] && i>=today }">
 								<!-- class resday css로 마우스 대면 변하게 바꾸었다. -->
-								<span style="color: black; background-color:#ccffcc" class="resday"
+								<%-- <span style="color: black; background-color:#ccffcc" class="resday"
 								 val1="${year }" val2="${month }">
-									${i }
-								</span>
+									${i } 줄을 바꿔서 입력하면 공백이 생긴다. 유의!!!
+								</span> --%>
+								<span style="color: black; background-color:#ccffcc" class="resday"
+								 val1="${year }" val2="${month }">${i }</span> 
 							</c:when>
 							<c:otherwise>
 								<span style="color: gray;">${i }</span>

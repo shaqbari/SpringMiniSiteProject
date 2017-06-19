@@ -41,7 +41,7 @@ ul,ol li{color:#ffffff; line-height:25px; }
 
 #menu-top{width:960px; height:60px; float:left; margin:15px 0 15px 0; padding:0 0 0 0; background:#5c462d;}
 
-#top_nav{width:660px; height:30px; margin:20px 0 0 0; padding:0 0 0 0; text-align:center; float:left;}
+#top_nav{width:760px; height:30px; margin:20px 0 0 0; padding:0 0 0 0; text-align:center; float:left;}
 
 #top_nav ul{margin:0 0 0 0px; padding:0 0 0 0;}
 
@@ -125,7 +125,7 @@ ul,ol li{color:#ffffff; line-height:25px; }
 
 #footer{width:960px; height:100px; margin:0 0 0 0; float:left; text-align:center; border-top:1px dashed #fff; background:#5c462d;}
 
-#footer_nav{width:760px; height:30px; margin:10px 0 0 0;}
+#footer_nav{width:96px; height:30px; margin:10px 0 0 0;}
 
 #footer_nav ul{ margin:0 0 0 250px; padding:0;}
 

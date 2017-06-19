@@ -44,8 +44,19 @@ public class FoodDAO {
 	};
 	
 	
-	public List<FoodResVO> foodMyPage(String id){;
+	public List<FoodResVO> foodMyPage(String id){
 
 		return fMapper.foodMyPage(id);
 
-	}
+	};
+	
+	public List<FoodResVO> foodAdminPage(){
+		
+		return fMapper.foodAdminPage();
+	};
+	
+	public void resStateChange(int res_no){
+		
+		fMapper.resStateChange(res_no);
+	};
+}

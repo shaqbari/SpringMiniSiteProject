@@ -112,8 +112,11 @@
 					<c:if test="${sessionScope.id!=null }">
 						<li><a href="reserve.do">예약센터</a></li>
 					</c:if>
+					<c:if test="${sessionScope.id!=null }">
+						<li><a href="mypage.do">마이페이지</a></li>
+					</c:if>
 					<c:if test="${sessionScope.id!=null && sessionScope.admin=='y'}">
-						<li><a href="reserve_config.do">예약현황</a></li>
+						<li><a href="adminpage.do">예약현황</a></li>
 					</c:if>
 						
 				</ul>
@@ -181,6 +184,9 @@
 
 					<c:if test="${sessionScope.id!=null }">
 						<li><a href="reserve.do">예약센터</a></li>
+					</c:if>
+					<c:if test="${sessionScope.id!=null }">
+						<li><a href="mypage.do">마이페이지</a></li>
 					</c:if>
 					<c:if test="${sessionScope.id!=null && sessionScope.admin=='y'}">
 						<li><a href="reserve_config.do">예약현황</a></li>

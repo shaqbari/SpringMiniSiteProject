@@ -14,7 +14,7 @@ $(function(){
 		var s=$('#s').val();
 		var b=$('#b').val();
 		
-		$('#r_inwon').html("성인 : "+s+"명, 아동 : "+b+"명");
+		$('#r_inwon').html("성인:"+s+"명, 아동 : "+b+"명");//:에서 자를것이므로 :다음에 공백있으면 안된다.
 		$('#reserve_btn').show();
 		
 	});

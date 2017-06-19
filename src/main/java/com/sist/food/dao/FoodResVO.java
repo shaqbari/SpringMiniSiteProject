@@ -3,14 +3,23 @@ package com.sist.food.dao;
 import java.util.Date;
 
 public class FoodResVO {
-	private int res_no;
-	private int house_no;
+	private int res_no;//자동생성
+	private int house_no;//업체정보
 	private String id;
 	private String res_date;
 	private String res_time;
 	private String res_state;
+	private String res_inwon;
 	private Date regdate;
 	private FoodReserveVO fvo = new FoodReserveVO();
+
+	public String getRes_inwon() {
+		return res_inwon;
+	}
+
+	public void setRes_inwon(String res_inwon) {
+		this.res_inwon = res_inwon;
+	}
 
 	public FoodReserveVO getFvo() {
 		return fvo;

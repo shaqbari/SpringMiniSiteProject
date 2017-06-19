@@ -12,14 +12,15 @@
 $(function(){
 	$('.res_time').click(function(){
 		var time=$(this).text();
+		//console.log(time);
 		
 		$.ajax({
 			type:'post'
 			, url:'reserve_inwon.do'
 			, success:function(response){
+				console.log(time);
+				$('#r_time').text("예약시간:"+time);//:에서 자를것이므로 :다음에 공백있으면 안된다.
 				$('#inwon_view').html(response);
-				
-				$('#r_time').text("예약시간 : "+time);
 				
 			}
 			

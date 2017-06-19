@@ -24,7 +24,7 @@
 					$('#list_view').html(response);//이파일은 foodreserve에 속하기 때문에  foodreserve에 있는 id를 쓸수 있다.
 					//소스보기에는 안보이지만 가상으로 기억하고 있다.
 					
-					$('#r_addr').text('주소 : '+gu);
+					$('#r_addr').text('주소:'+gu);//:에서 자를것이므로 :다음에 공백있으면 안된다.
 				}
 				
 			});
