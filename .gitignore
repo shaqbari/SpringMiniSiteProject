@@ -78,7 +78,7 @@ local.properties
 
 *.war
 *.ear
-*.zip
+
 *.tar.gz
 *.rar
 
